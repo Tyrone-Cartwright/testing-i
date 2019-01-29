@@ -41,7 +41,7 @@ function fail(item) {
   }
 
   if (item.type == "armor" && item.level <= 5) {
-    throw new Error("armor cannot be enhanced");
+    throw new Error("armor cannot be");
   }
 
   if (item.level >= 0 && item.level <= 14) {
