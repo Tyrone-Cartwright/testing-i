@@ -5,59 +5,59 @@ module.exports = {
 };
 
 function success(item) {
-  if (item.durability < 25 && item.level <= 14) {
+  if (item.durability < 25 && item.enhancement <= 14) {
     throw new Error(`The ${item.type}'s durability is too low to be enhanced.`);
   }
 
-  if (item.durability < 10 && item.level >= 15) {
+  if (item.durability < 10 && item.enhancement >= 15) {
     throw new Error(`The ${item.type}'s durability is too low to be enhanced.`);
   }
 
-  if (item.level >= 0 && item.level < 15) {
-    item.level++;
-    item.name = `[+${item.level}] ${item.name}`;
-  } else if (item.level === 15) {
-    item.level++;
+  if (item.enhancement >= 0 && item.enhancement < 15) {
+    item.enhancement++;
+    item.name = `[+${item.enhancement}] ${item.name}`;
+  } else if (item.enhancement === 15) {
+    item.enhancement++;
     item.name = `PRI ${item.name}`;
-  } else if (item.level === 16) {
-    item.level++;
+  } else if (item.enhancement === 16) {
+    item.enhancement++;
     item.name = `DUO ${item.name}`;
-  } else if (item.level === 17) {
-    item.level++;
+  } else if (item.enhancement === 17) {
+    item.enhancement++;
     item.name = `TRI ${item.name}`;
-  } else if (item.level === 18) {
-    item.level++;
+  } else if (item.enhancement === 18) {
+    item.enhancement++;
     item.name = `TET ${item.name}`;
-  } else if (item.level === 19) {
-    item.level++;
+  } else if (item.enhancement === 19) {
+    item.enhancement++;
     item.name = `PEN ${item.name}`;
   }
   return item;
 }
 
 function fail(item) {
-  if (item.type == "weapon" && item.level <= 7) {
+  if (item.type == "weapon" && item.enhancement <= 7) {
     throw new Error("weapon cannot be enhance.");
   }
 
-  if (item.type == "armor" && item.level <= 5) {
+  if (item.type == "armor" && item.enhancement <= 5) {
     throw new Error("armor cannot be");
   }
 
-  if (item.level >= 0 && item.level <= 14) {
+  if (item.enhancement >= 0 && item.enhancement <= 14) {
     item.durability -= 5;
-  } else if (item.level >= 15 && item.level <= 16) {
+  } else if (item.enhancement >= 15 && item.enhancement <= 16) {
     item.durability -= 10;
-  } else if (item.level === 17) {
-    item.level--;
+  } else if (item.enhancement === 17) {
+    item.enhancement--;
     item.durability -= 10;
     item.name = `PRI ${item.name}`;
-  } else if (item.level === 18) {
-    item.level--;
+  } else if (item.enhancement === 18) {
+    item.enhancement--;
     item.durability -= 10;
     item.name = `DUO ${item.name}`;
-  } else if (item.level === 19) {
-    item.level--;
+  } else if (item.enhancement === 19) {
+    item.enhancement--;
     item.durability -= 10;
     item.name = `TRI ${item.name}`;
   }
