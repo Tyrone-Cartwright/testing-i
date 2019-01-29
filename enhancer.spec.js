@@ -1,6 +1,6 @@
 const enhanced = require("./enhancer");
 
-describe("Testing enchanting system", () => {
+describe("Testing enhancing system", () => {
   describe("succes() method", () => {
     const original = {
       originalName: "Titan",
