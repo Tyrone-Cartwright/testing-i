@@ -4,70 +4,63 @@ module.exports = {
   repair
 };
 
-function enhancedCheck(item) {
-  let upgrade = item.enhancement;
-  upgrade += 1;
-  console.log(upgrade);
-  if (upgrade > 20) {
-    throw new Error("item");
-  } else {
-    // item.enhancement += 1;
-    let name = item.origName;
-    switch (upgrade) {
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-      case 5:
-      case 6:
-      case 7:
-      case 8:
-      case 9:
-      case 10:
-      case 11:
-      case 12:
-      case 13:
-      case 14:
-      case 15:
-        item.name = `[+${upgrade}] ${name}`;
-        break;
-      case 16:
-        item.name = `[PRI] ${name}`;
-        break;
-      case 17:
-        item.name = `[DUO] ${name}`;
-        break;
-      case 18:
-        item.name = `[TRI] ${name}`;
-        break;
-      case 19:
-        item.name = `[TET] ${name}`;
-        break;
-      case 20:
-        item.name = `[PEN] ${name}`;
-        break;
-    }
-  }
-}
-
 function success(item) {
-  if (!item) return null;
-  if (item.type !== "armour" && item.type !== "weapon") {
-    return console.error({ error: "can enhance weapon and armour only" });
-  } else {
-    enhancedCheck(item);
-    console.log(item);
-    return {
-      origName: item.origName,
-      name: `${item.name}`,
-      type: item.type,
-      durability: item.durability,
-      enhancement: item.enhancement + 1
-    };
+  if (item.durability < 25 && item.level <= 14) {
+    throw new Error(`The ${item.type}'s durability is too low to be enhanced.`);
   }
+
+  if (item.durability < 10 && item.level >= 15) {
+    throw new Error(`The ${item.type}'s durability is too low to be enhanced.`);
+  }
+
+  if (item.level >= 0 && item.level < 15) {
+    item.level++;
+    item.name = `[+${item.level}] ${item.name}`;
+  } else if (item.level === 15) {
+    item.level++;
+    item.name = `PRI ${item.name}`;
+  } else if (item.level === 16) {
+    item.level++;
+    item.name = `DUO ${item.name}`;
+  } else if (item.level === 17) {
+    item.level++;
+    item.name = `TRI ${item.name}`;
+  } else if (item.level === 18) {
+    item.level++;
+    item.name = `TET ${item.name}`;
+  } else if (item.level === 19) {
+    item.level++;
+    item.name = `PEN ${item.name}`;
+  }
+  return item;
 }
 
 function fail(item) {
+  if (item.type == "weapon" && item.level <= 7) {
+    throw new Error("weapon cannot be enhance.");
+  }
+
+  if (item.type == "armor" && item.level <= 5) {
+    throw new Error("armor cannot be enhanced");
+  }
+
+  if (item.level >= 0 && item.level <= 14) {
+    item.durability -= 5;
+  } else if (item.level >= 15 && item.level <= 16) {
+    item.durability -= 10;
+  } else if (item.level === 17) {
+    item.level--;
+    item.durability -= 10;
+    item.name = `PRI ${item.name}`;
+  } else if (item.level === 18) {
+    item.level--;
+    item.durability -= 10;
+    item.name = `DUO ${item.name}`;
+  } else if (item.level === 19) {
+    item.level--;
+    item.durability -= 10;
+    item.name = `TRI ${item.name}`;
+  }
   return item;
 }
 
